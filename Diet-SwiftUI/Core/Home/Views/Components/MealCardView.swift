@@ -66,7 +66,7 @@ struct MealCardView: View {
                             Label("Fed?", systemImage: "checkmark.circle")
                                 .font(.caption)
                                 .padding(8)
-                                .frame(maxWidth: .infinity)
+                                .frame(width: 80)
                                 .background(Color.gray.opacity(0.2))
                                 .foregroundColor(.gray)
                                 .clipShape(Capsule())
