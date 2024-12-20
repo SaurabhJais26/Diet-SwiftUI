@@ -7,15 +7,18 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class DietViewModel: ObservableObject {
     @Published var diets: [AllDiet] = []
     @Published var dietStreak: [String] = []
-    @Published var isLoading: Bool = false
+    @Published var isLoading = false
     @Published var errorMessage: String?
 
     func fetchDiets() async {
-        isLoading = true
+        DispatchQueue.main.async {
+            self.isLoading = true
+        }
         guard let url = URL(string: "https://uptodd.com/fetch-all-diets") else { return }
 
         do {
@@ -28,7 +31,7 @@ class DietViewModel: ObservableObject {
             }
         } catch {
             DispatchQueue.main.async {
-                self.errorMessage = error.localizedDescription
+                self.errorMessage = "Failed to load diets: \(error.localizedDescription)"
                 self.isLoading = false
             }
         }

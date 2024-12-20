@@ -34,7 +34,7 @@ struct MealCardView: View {
                         .lineLimit(1)
  
                     HStack(spacing: 4) {
-                        Image(systemName: "clock")
+                        Image(systemName: "deskclock")
                             .font(.subheadline)
                             .foregroundColor(.gray)
                         Text("\(recipe.duration) mins")
@@ -55,7 +55,7 @@ struct MealCardView: View {
                                 .font(.caption)
                                 .padding(8)
                                 .frame(width: 110)
-                                .background(Color.blue)
+                                .background(Color("PurpleBlue"))
                                 .foregroundColor(.white)
                                 .clipShape(Capsule())
                         }
@@ -63,13 +63,18 @@ struct MealCardView: View {
                         Button(action: {
                             // Fed? action
                         }) {
-                            Label("Fed?", systemImage: "checkmark.circle")
-                                .font(.caption)
-                                .padding(8)
-                                .frame(width: 80)
-                                .background(Color.gray.opacity(0.2))
-                                .foregroundColor(.gray)
-                                .clipShape(Capsule())
+                            HStack {
+                                Image(systemName: "checkmark.circle")
+                                Text("Fed?")
+                            }
+                            .font(.caption)
+                            .padding(8)
+                            .frame(width: 80)
+                            .foregroundColor(Color("PurpleBlue"))
+                            .overlay(
+                                Capsule()
+                                    .stroke(Color("PurpleBlue"), lineWidth: 1)
+                            )
                         }
                     }
                 }

@@ -15,13 +15,15 @@ struct SearchBarView: View {
             // Search Bar
             HStack {
                 Image(systemName: "magnifyingglass")
-                    .foregroundColor(.gray)
+                    .foregroundColor(.secondary)
                 TextField("Search Meals", text: $searchText)
                     .foregroundColor(.primary)
             }
             .padding(8)
-            .background(Color.white)
-            .cornerRadius(10)
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color(.systemGray6))
+            )
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color.gray.opacity(0.5), lineWidth: 1)
@@ -33,7 +35,7 @@ struct SearchBarView: View {
             }) {
                 Image(systemName: "slider.horizontal.3") // Different icon for the filter
                     .font(.title2)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.primary)
             }
         }
         .padding(.horizontal)

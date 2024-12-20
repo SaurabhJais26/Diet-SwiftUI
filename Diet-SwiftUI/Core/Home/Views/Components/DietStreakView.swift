@@ -25,7 +25,7 @@ struct DietStreakView: View {
                             .foregroundColor(.blue)
                         Text("1 Streak")
                             .font(.caption)
-                            .foregroundColor(Color(.darkGray))
+                            .foregroundColor(.primary)
                             .bold()
                     }
                     .padding(.horizontal, 10)
@@ -67,15 +67,20 @@ struct DietStreakView: View {
                     Text("Night")
                         .font(.subheadline)
                     Image(systemName: "circle.fill")
-                        .foregroundColor(Color(.systemGray4))
+                        .foregroundColor(.secondary)
                         .font(.title2)
                 }
             }
             
         }
         .padding()
-        .background(Color(UIColor.systemGreen.withAlphaComponent(0.1)))
+        .background(Color("LightSpringGreen"))
         .cornerRadius(12)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color("LightSpringGreen").opacity(0.1), lineWidth: 2)
+        )
+        .padding(.horizontal)
     }
 }
 

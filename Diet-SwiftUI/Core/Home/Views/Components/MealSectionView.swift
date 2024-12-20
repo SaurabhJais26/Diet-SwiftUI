@@ -5,11 +5,19 @@
 //  Created by Saurabh Jaiswal on 20/12/24.
 //
 
+//
+//  MealSectionView.swift
+//  Diet-SwiftUI
+//
+//  Created by Saurabh Jaiswal on 20/12/24.
+//
+
 import SwiftUI
- 
+
 struct MealSectionView: View {
+    @State private var isSelectAll: Bool = false // State to bind the checkbox
     let meal: AllDiet
- 
+
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             // Header
@@ -21,9 +29,9 @@ struct MealSectionView: View {
                         .font(.caption)
                         .foregroundColor(.gray)
                 }
- 
+
                 Spacer()
- 
+
                 // Circular Progress
                 ZStack {
                     Circle()
@@ -32,7 +40,7 @@ struct MealSectionView: View {
                         .trim(from: 0, to: CGFloat(meal.progressStatus.completed) / CGFloat(meal.progressStatus.total))
                         .stroke(Color.red, style: StrokeStyle(lineWidth: 6, lineCap: .round))
                         .rotationEffect(.degrees(-90))
- 
+
                     VStack {
                         Text("Status")
                             .font(.subheadline)
@@ -44,14 +52,14 @@ struct MealSectionView: View {
                 }
                 .frame(width: 70, height: 70) // Increased size
             }
- 
+
             // Select All
-            Toggle(isOn: .constant(false)) {
+            Toggle(isOn: $isSelectAll) { // Bind the state to `isOn`
                 Text("Select All")
                     .font(.subheadline)
             }
             .toggleStyle(CheckboxToggleStyle())
- 
+
             // Recipes
             ForEach(meal.recipes, id: \.id) { recipe in
                 MealCardView(recipe: recipe)
@@ -60,23 +68,23 @@ struct MealSectionView: View {
         .padding()
     }
 }
- 
+
 // Checkbox Toggle Style
 struct CheckboxToggleStyle: ToggleStyle {
     func makeBody(configuration: Configuration) -> some View {
         HStack {
             Button(action: {
-                configuration.isOn.toggle()
+                configuration.isOn.toggle() // Toggle state on click
             }) {
-                Image(systemName: configuration.isOn ? "checkmark.square" : "square")
-                    .foregroundColor(.black)
+                Image(systemName: configuration.isOn ? "checkmark.square.fill" : "square")
+                    .foregroundColor(configuration.isOn ? Color("PurpleBlue") : .primary)
                     .font(.title3) // Adjust size of checkbox
             }
             configuration.label
         }
     }
 }
- 
+
 #Preview {
     MealSectionView(
         meal: AllDiet(
@@ -87,3 +95,4 @@ struct CheckboxToggleStyle: ToggleStyle {
         )
     )
 }
+
