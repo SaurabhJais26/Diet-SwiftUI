@@ -15,7 +15,8 @@
 import SwiftUI
 
 struct MealSectionView: View {
-    @State private var isSelectAll: Bool = false // State to bind the checkbox
+    @Binding var isSelectAll: Bool
+    @State private var selectedRecipes: Set<Int> = [] // Track selected recipes
     let meal: AllDiet
 
     var body: some View {
@@ -50,25 +51,46 @@ struct MealSectionView: View {
                             .foregroundColor(.primary)
                     }
                 }
-                .frame(width: 70, height: 70) // Increased size
+                .frame(width: 70, height: 70)
             }
 
             // Select All
-            Toggle(isOn: $isSelectAll) { // Bind the state to `isOn`
+            Toggle(isOn: $isSelectAll) {
                 Text("Select All")
                     .font(.subheadline)
             }
             .toggleStyle(CheckboxToggleStyle())
+            .onChange(of: isSelectAll) { newValue in
+                if newValue {
+                    selectedRecipes = Set(meal.recipes.map { $0.id }) // Select all recipes
+                } else {
+                    selectedRecipes.removeAll() // Deselect all recipes
+                }
+            }
 
             // Recipes
             ForEach(meal.recipes, id: \.id) { recipe in
                 MealCardView(recipe: recipe)
+                    .background(
+                        selectedRecipes.contains(recipe.id) ? Color.gray.opacity(0.2) : Color.clear
+                    )
+                    .onTapGesture {
+                        if selectedRecipes.contains(recipe.id) {
+                            selectedRecipes.remove(recipe.id)
+                        } else {
+                            selectedRecipes.insert(recipe.id)
+                        }
+
+                        isSelectAll = selectedRecipes.count == meal.recipes.count
+                    }
             }
         }
         .padding(.horizontal)
         .frame(maxWidth: .infinity)
     }
 }
+
+
 
 // Checkbox Toggle Style
 struct CheckboxToggleStyle: ToggleStyle {
@@ -88,7 +110,7 @@ struct CheckboxToggleStyle: ToggleStyle {
 
 #Preview {
     MealSectionView(
-        meal: AllDiet(
+        isSelectAll: .constant(false), meal: AllDiet(
             daytime: "Morning Meals",
             timings: "6AM - 11:59AM",
             progressStatus: ProgressStatus(total: 3, completed: 1),

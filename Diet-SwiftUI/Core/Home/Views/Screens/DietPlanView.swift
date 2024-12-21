@@ -10,6 +10,7 @@ import SwiftUI
 struct DietPlanView: View {
     @StateObject private var viewModel = DietViewModel()
     @State private var showAlert = false
+    @State private var isSelectAll = false // Track selection state
 
     var body: some View {
         GeometryReader { geometry in
@@ -22,13 +23,25 @@ struct DietPlanView: View {
                         SearchBarView()
 
                         ForEach(viewModel.diets, id: \.daytime) { meal in
-                            MealSectionView(meal: meal)
+                            MealSectionView(isSelectAll: $isSelectAll, meal: meal)
                                 .frame(maxWidth: geometry.size.width * 0.9)
                         }
                         .padding(.horizontal, geometry.size.width * 0.05)
                     }
                 }
                 .background(Color.theme.backgroundColor)
+
+                // Footer View
+                if isSelectAll {
+                    VStack {
+                        Spacer()
+                        FooterView()
+                            .padding()
+                            .background(Color(.systemBackground))
+                            .shadow(color: .gray.opacity(0.3), radius: 3, x: 0, y: -2)
+                    }
+                    .edgesIgnoringSafeArea(.bottom)
+                }
 
                 // Progress View
                 if viewModel.isLoading {
@@ -63,6 +76,7 @@ struct DietPlanView: View {
         }
     }
 }
+
 
 #Preview {
     DietPlanView()
