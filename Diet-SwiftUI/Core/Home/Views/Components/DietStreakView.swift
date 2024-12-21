@@ -58,7 +58,7 @@ struct DietStreakView: View {
                 VStack {
                     Text("Evening")
                         .font(.subheadline)
-                    Image(systemName: "circle.fill")
+                    Image("EveningGreen")
                         .foregroundColor(.green)
                         .font(.title2)
                 }
@@ -66,11 +66,12 @@ struct DietStreakView: View {
                 VStack {
                     Text("Night")
                         .font(.subheadline)
-                    Image(systemName: "circle.fill")
+                    Image("NightGray")
                         .foregroundColor(.secondary)
                         .font(.title2)
                 }
             }
+            .frame(maxWidth: .infinity)
             
         }
         .padding()

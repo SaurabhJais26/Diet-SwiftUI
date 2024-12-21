@@ -33,7 +33,7 @@ struct SearchBarView: View {
             Button(action: {
                 // Handle filter action
             }) {
-                Image(systemName: "slider.horizontal.3") // Different icon for the filter
+                Image("Filter") // Different icon for the filter
                     .font(.title2)
                     .foregroundColor(.primary)
             }

@@ -65,7 +65,8 @@ struct MealSectionView: View {
                 MealCardView(recipe: recipe)
             }
         }
-        .padding()
+        .padding(.horizontal)
+        .frame(maxWidth: .infinity)
     }
 }
 

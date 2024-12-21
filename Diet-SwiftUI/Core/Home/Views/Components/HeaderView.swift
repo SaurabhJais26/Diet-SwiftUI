@@ -24,11 +24,11 @@ struct HeaderView: View {
 
             HStack {
                 // Title and subtitle
-                VStack(alignment: .leading, spacing: 4) { // Add spacing between title and subtitle
+                VStack(alignment: .leading, spacing: 4) {
                     Text("Everyday Diet Plan")
                         .font(.title3.bold())
                         .foregroundColor(.primary)
-                        .minimumScaleFactor(0.8) // Ensures text scales down if needed
+                        .minimumScaleFactor(0.8) 
                         .lineLimit(1)
 
                     Text("Track Ananya's every meal")
@@ -70,8 +70,5 @@ struct HeaderView: View {
 #Preview {
     Group {
         HeaderView()
-            .previewDevice("iPhone SE (3rd generation)")
-        HeaderView()
-            .previewDevice("iPhone 14 Pro Max")
     }
 }

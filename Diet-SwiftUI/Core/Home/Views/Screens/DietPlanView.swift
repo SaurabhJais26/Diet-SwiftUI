@@ -12,50 +12,54 @@ struct DietPlanView: View {
     @State private var showAlert = false
 
     var body: some View {
-        ZStack {
-            // Main Content
-            ScrollView {
-                VStack(spacing: 16) {
-                    HeaderView()
-                    DietStreakView()
-                    SearchBarView()
+        GeometryReader { geometry in
+            ZStack {
+                // Main Content
+                ScrollView {
+                    VStack(spacing: 16) {
+                        HeaderView()
+                        DietStreakView()
+                        SearchBarView()
 
-                    ForEach(viewModel.diets, id: \.daytime) { meal in
-                        MealSectionView(meal: meal)
+                        ForEach(viewModel.diets, id: \.daytime) { meal in
+                            MealSectionView(meal: meal)
+                                .frame(maxWidth: geometry.size.width * 0.9)
+                        }
+                        .padding(.horizontal, geometry.size.width * 0.05)
+                    }
+                }
+                .background(Color.theme.backgroundColor)
+
+                // Progress View
+                if viewModel.isLoading {
+                    ZStack {
+                        Color(.systemBackground)
+                            .ignoresSafeArea()
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .red))
+                            .scaleEffect(2)
                     }
                 }
             }
-            .background(Color.theme.backgroundColor)
-
-            // Progress View
-            if viewModel.isLoading {
-                ZStack {
-                    Color(.systemBackground)
-                        .ignoresSafeArea()
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: .red))
-                        .scaleEffect(2)
+            .task {
+                await viewModel.fetchDiets()
+            }
+            .onChange(of: viewModel.errorMessage) { errorMessage in
+                if errorMessage != nil {
+                    showAlert = true
                 }
             }
-        }
-        .task {
-            await viewModel.fetchDiets()
-        }
-        .onChange(of: viewModel.errorMessage) { errorMessage in
-            if errorMessage != nil {
-                showAlert = true
+            .overlay {
+                DietAlertView(
+                    isPresented: $showAlert,
+                    title: "Something went wrong",
+                    message: viewModel.errorMessage ?? "Unknown error",
+                    buttonTitle: "Ok",
+                    onDismiss: {
+                        viewModel.errorMessage = nil
+                    }
+                )
             }
-        }
-        .overlay {
-            DietAlertView(
-                isPresented: $showAlert,
-                title: "Something went wrong",
-                message: viewModel.errorMessage ?? "Unknown error",
-                buttonTitle: "Ok",
-                onDismiss: {
-                    viewModel.errorMessage = nil
-                }
-            )
         }
     }
 }
@@ -63,5 +67,4 @@ struct DietPlanView: View {
 #Preview {
     DietPlanView()
 }
-
 

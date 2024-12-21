@@ -98,6 +98,7 @@ struct MealCardView: View {
                 }
             }
         }
+        .frame(maxWidth: .infinity)
     }
 }
  
