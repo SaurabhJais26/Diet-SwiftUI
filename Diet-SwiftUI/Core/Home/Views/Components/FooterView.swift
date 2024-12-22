@@ -25,7 +25,7 @@ struct FooterView: View {
             .frame(height: 40.0)
             .padding(.vertical, 6.0)
             .padding(.horizontal, 9.5)
-            .background(Color(red: 76.0/255.0, green: 88.0/255.0, blue: 217.0/255.0))
+            .background(Color("PurpleBlue"))
             .cornerRadius(33.0)
     }
     
