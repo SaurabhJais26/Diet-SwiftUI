@@ -17,16 +17,22 @@ struct FooterView: View {
     }
     
     private func fedButtonView() -> some View{
-        Text("Fed?")
-            .foregroundColor(Color.white)
-            .minimumScaleFactor(0.5)
-            .lineLimit(1)
-            .frame(maxWidth: .infinity, alignment: .center)
-            .frame(height: 40.0)
-            .padding(.vertical, 6.0)
-            .padding(.horizontal, 9.5)
-            .background(Color("PurpleBlue"))
-            .cornerRadius(33.0)
+        Button {
+            
+        } label: {
+            Text("Fed?")
+                .foregroundColor(Color.white)
+                .minimumScaleFactor(0.5)
+                .lineLimit(1)
+                .frame(maxWidth: .infinity, alignment: .center)
+                .frame(height: 40.0)
+                .padding(.vertical, 6.0)
+                .padding(.horizontal, 9.5)
+                .background(Color("PurpleBlue"))
+                .cornerRadius(33.0)
+        }
+        
+            
     }
     
     private func cancelButtonView() -> some View{

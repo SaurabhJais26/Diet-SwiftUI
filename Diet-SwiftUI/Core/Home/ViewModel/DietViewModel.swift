@@ -24,6 +24,12 @@ class DietViewModel: ObservableObject {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             let dietResponse = try JSONDecoder().decode(DietModel.self, from: data)
+            if let json = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) {
+                let jsonData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+                if let jsonString = String(data: jsonData, encoding: .utf8) {
+                    print("Response Body: \(jsonString)")
+                }
+            }
             DispatchQueue.main.async {
                 self.diets = dietResponse.data.diets.allDiets
                 self.dietStreak = dietResponse.data.diets.dietStreak

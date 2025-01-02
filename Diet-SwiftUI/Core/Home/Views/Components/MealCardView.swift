@@ -9,6 +9,7 @@ import SwiftUI
  
 struct MealCardView: View {
     let recipe: Recipe
+    @Binding var showFooter: Bool
  
     var body: some View {
         ZStack {
@@ -59,13 +60,21 @@ struct MealCardView: View {
                                 .foregroundColor(.white)
                                 .clipShape(Capsule())
                         }
- 
-                        Button(action: {
-                            // Fed? action
-                        }) {
+                        
+                        Button {
+                            if recipe.isCompleted == 1 {
+                                print("Alredy fed")
+                            } else {
+                                showFooter = true
+                            }
+                        } label: {
                             HStack {
-                                Image(systemName: "checkmark.circle")
-                                Text("Fed?")
+                                Image(systemName: recipe.isCompleted == 1 ? "checkmark.circle.fill" : "checkmark.circle")
+                                if recipe.isCompleted == 1 {
+                                    Text("Fed")
+                                } else {
+                                    Text("Fed?")
+                                }
                             }
                             .font(.caption)
                             .padding(8)
@@ -100,6 +109,9 @@ struct MealCardView: View {
         }
         .frame(maxWidth: .infinity)
     }
+    
+    func fedButtonAction() {
+    }
 }
  
 #Preview {
@@ -111,7 +123,8 @@ struct MealCardView: View {
         image: "https://appfeatureimages.s3.amazonaws.com/recipes/Porridge.webp",
         isFavorite: 0,
         isCompleted: 1
-    ))
+    ), showFooter: .constant(false))
+    
 }
 
 
