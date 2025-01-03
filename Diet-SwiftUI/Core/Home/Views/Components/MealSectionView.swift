@@ -5,13 +5,6 @@
 //  Created by Saurabh Jaiswal on 20/12/24.
 //
 
-//
-//  MealSectionView.swift
-//  Diet-SwiftUI
-//
-//  Created by Saurabh Jaiswal on 20/12/24.
-//
-
 import SwiftUI
 
 struct MealSectionView: View {

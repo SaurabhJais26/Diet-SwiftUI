@@ -63,7 +63,7 @@ struct MealCardView: View {
                         
                         Button {
                             if recipe.isCompleted == 1 {
-                                print("Alredy fed")
+                                print("Already fed")
                             } else {
                                 showFooter = true
                             }

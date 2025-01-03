@@ -36,18 +36,26 @@ struct FooterView: View {
     }
     
     private func cancelButtonView() -> some View{
-        Text("Cancel")
-            .minimumScaleFactor(0.5)
-            .lineLimit(1)
-            .frame(maxWidth: .infinity, alignment: .center)
-            .frame(height: 40.0)
-            .padding(.vertical, 6.0)
-            .padding(.horizontal, 9.5)
-            .cornerRadius(33.0)
-            .overlay {
-                RoundedRectangle(cornerRadius: 33.0)
-                    .stroke(Color.black, lineWidth: 1.0)
-            }
+        
+        Button {
+            
+        } label: {
+            Text("Cancel")
+                .foregroundColor(.primary)
+                .minimumScaleFactor(0.5)
+                .lineLimit(1)
+                .frame(maxWidth: .infinity, alignment: .center)
+                .frame(height: 40.0)
+                .padding(.vertical, 6.0)
+                .padding(.horizontal, 9.5)
+                .cornerRadius(33.0)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 33.0)
+                        .stroke(Color.black, lineWidth: 1.0)
+                }
+        }
+
+        
     }
 }
 
